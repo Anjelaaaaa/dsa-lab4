@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Application - English Version</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        nav { margin-bottom: 20px; }
+        a { margin-right: 15px; text-decoration: none; color: #0366d6; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/dsa-lab4/v$VERSION/">Home</a>
+        <a href="/dsa-lab4/v$VERSION/ru/">Русский</a>
+        <a href="/dsa-lab4/v$VERSION/en/">English</a>
+    </nav>
+    
+    <h1>Welcome to My Application!</h1>
+    <p>This is the English version of the site for dsa-lab4 repository.</p>
+    <p>Version: <span id="version">1.0.0</span></p>
+    
+    <script>
+        const pathSegments = window.location.pathname.split('/');
+        const versionIndex = pathSegments.indexOf('v');
+        if (versionIndex !== -1 && pathSegments[versionIndex + 1]) {
+            document.getElementById('version').textContent = pathSegments[versionIndex + 1];
+        }
+    </script>
+</body>
+</html>
