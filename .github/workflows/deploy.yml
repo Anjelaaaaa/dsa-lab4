@@ -18,52 +18,37 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        token: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Setup Git
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
         
-    - name: Get version and prepare deployment
+    - name: Prepare deployment
       run: |
-        # ПРАВИЛЬНОЕ извлечение версии из тега
         VERSION=${{ github.ref_name }}
-        # Убираем 'v' из начала, если есть
         VERSION=${VERSION#v}
         echo "🔄 Deploying version: v$VERSION"
-        echo "GitHub Ref: ${{ github.ref }}"
-        echo "GitHub Ref Name: ${{ github.ref_name }}"
         
-        # Создаем директорию для версии
-        mkdir -p "deploy/v$VERSION"
+        # Создаем папку для версии
+        mkdir -p "v$VERSION"
         
-        # Копируем файлы в версионную директорию
-        cp -r ru en index.html "deploy/v$VERSION/"
+        # Копируем файлы
+        cp -r ru en index.html "v$VERSION/"
         
-        echo "📁 Files copied to deploy/v$VERSION"
+        # Обновляем пути в HTML файлах
+        find "v$VERSION" -name "*.html" -exec sed -i 's|href="../|href="/dsa-lab4/v$VERSION/|g' {} \;
+        find "v$VERSION" -name "*.html" -exec sed -i 's|href="ru/|href="/dsa-lab4/v$VERSION/ru/|g' {} \;
+        find "v$VERSION" -name "*.html" -exec sed -i 's|href="en/|href="/dsa-lab4/v$VERSION/en/|g' {} \;
         
-        # Обновляем пути в HTML файлах для версионного деплоя
-        find "deploy/v$VERSION" -name "*.html" -exec sed -i 's|href="../|href="/dsa-lab4/v$VERSION/|g' {} \;
-        find "deploy/v$VERSION" -name "*.html" -exec sed -i 's|href="ru/|href="/dsa-lab4/v$VERSION/ru/|g' {} \;
-        find "deploy/v$VERSION" -name "*.html" -exec sed -i 's|href="en/|href="/dsa-lab4/v$VERSION/en/|g' {} \;
-        
-        echo "✅ Paths updated for version v$VERSION"
-        
-    - name: Deploy to gh-pages branch
+    - name: Deploy to gh-pages
       run: |
-        echo "🚀 Starting deployment to gh-pages..."
         git fetch origin gh-pages
         git checkout gh-pages
         
-        # Копируем ВСЮ папку deploy, а не только содержимое версии
-        cp -r deploy/* .
-        
-        echo "📋 Current structure:"
-        ls -la
+        # Копируем папку с версией
+        cp -r "v${{ github.ref_name#v }}"/* .
         
         git add .
-        git status
-        git commit -m "🚀 Deploy version v$VERSION" || echo "No changes to commit"
+        git commit -m "🚀 Deploy ${{ github.ref_name }}" || echo "No changes"
         git push origin gh-pages
-        echo "🎉 Successfully deployed v$VERSION"
