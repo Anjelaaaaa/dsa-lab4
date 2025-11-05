@@ -31,11 +31,13 @@
     <p>Версия: <span id="version">1.0.0</span></p>
     
     <script>
-        // Получаем версию из пути URL
+        // Находим версию в URL
         const pathSegments = window.location.pathname.split('/');
-        const versionIndex = pathSegments.indexOf('v');
-        if (versionIndex !== -1 && pathSegments[versionIndex + 1]) {
-            document.getElementById('version').textContent = pathSegments[versionIndex + 1];
+        for (let segment of pathSegments) {
+            if (segment.startsWith('v')) {
+                document.getElementById('version').textContent = segment;
+                break;
+            }
         }
     </script>
 </body>
