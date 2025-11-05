@@ -39,12 +39,21 @@ jobs:
         # Копируем файлы в папку версии
         cp -r index.html ru en "$VERSION"/
         
-        # Обновляем пути в HTML файлах
+        # Обновляем пути в HTML файлах для версионной папки
         find "$VERSION" -name "*.html" -exec sed -i "s|href=\"/dsa-lab4/|href=\"/dsa-lab4/$VERSION/|g" {} \;
         
-        echo "Version $VERSION created"
+        # Создаем временную копию главной страницы
+        cp index.html index_template.html
+        
+        # Обновляем главную страницу - добавляем новую версию в начало списка
+        sed -i "/<strong>Последняя версия:<\/strong>/c\\            
+        <p><strong>Последняя версия:</strong> <a href=\"$VERSION/\">$VERSION</a></p>" index.html
+        sed -i "/<strong>Предыдущие версии:<\/strong>/a\\                
+        <li><a href=\"$VERSION/\">$VERSION</a></li>" index.html
+        
+        echo "Version $VERSION added to main page"
         
         git add .
-        git commit -m "Deploy $VERSION" || echo "No changes to commit"
+        git commit -m "Deploy $VERSION and update version list" || echo "No changes to commit"
         git push origin gh-pages
         echo "Successfully deployed $VERSION"
