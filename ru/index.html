@@ -3,7 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Русская версия</title>
+    <title>Моё Приложение - Русская версия</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 40px; 
+        }
+        nav { 
+            margin-bottom: 20px; 
+        }
+        a { 
+            margin-right: 15px; 
+            text-decoration: none; 
+            color: #0366d6; 
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -13,7 +27,8 @@
     </nav>
     
     <h1>Добро пожаловать в моё приложение!</h1>
-    <p>Это русскоязычная версия сайта</p>
+    <p>Это русскоязычная версия сайта.</p>
+    <p>Версия: <span id="version">1.0.0</span></p>
     
     <script>
         // Получаем версию из пути URL
