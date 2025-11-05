@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Version</title>
+</head>
+<body>
+    <nav>
+        <a href="../">Home</a>
+        <a href="../ru/">Русский</a>
+        <a href="../en/">English</a>
+    </nav>
+    
+    <h1>Welcome to My Application!</h1>
+    <p>This is the English version of the site</p>
+    
+    <script>
+        // Get version from URL path
+        const pathSegments = window.location.pathname.split('/');
+        const versionIndex = pathSegments.indexOf('v');
+        if (versionIndex !== -1 && pathSegments[versionIndex + 1]) {
+            document.getElementById('version').textContent = pathSegments[versionIndex + 1];
+        }
+    </script>
+</body>
+</html>

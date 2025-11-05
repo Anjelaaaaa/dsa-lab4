@@ -1,0 +1,50 @@
+name: Deploy to GitHub Pages
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+    - name: Checkout and deploy
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        ref: gh-pages
+        fetch-depth: 0
+        
+    - name: Setup Git
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        
+    - name: Create version from main
+      run: |
+        VERSION="${{ github.ref_name }}"
+        echo "🚀 Creating version: $VERSION"
+        
+        # Получаем файлы из main ветки
+        git fetch origin main
+        git checkout origin/main -- index.html ru en
+        
+        # Создаем папку версии
+        mkdir -p "$VERSION"
+        
+        # Копируем файлы в папку версии
+        cp -r index.html ru en "$VERSION"/
+        
+        # Обновляем пути в HTML файлах
+        find "$VERSION" -name "*.html" -exec sed -i "s|href=\"/dsa-lab4/|href=\"/dsa-lab4/$VERSION/|g" {} \;
+        
+        echo "Version $VERSION created"
+        
+        git add .
+        git commit -m "Deploy $VERSION" || echo "No changes to commit"
+        git push origin gh-pages
+        echo "Successfully deployed $VERSION"
