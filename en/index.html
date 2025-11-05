@@ -201,10 +201,9 @@
     </div>
 
     <script>
-        // Исправленный скрипт для определения версии
         document.addEventListener('DOMContentLoaded', function() {
             const pathSegments = window.location.pathname.split('/');
-            let foundVersion = '1.0.0'; // значение по умолчанию
+            let foundVersion = '1.0.0';
             
             for (let segment of pathSegments) {
                 if (segment.startsWith('v')) {
