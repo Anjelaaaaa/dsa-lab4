@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моё Приложение - Русская версия</title>
+    <title>My Application - English Version</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
             padding: 20px;
@@ -43,21 +43,21 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #ff6b6b;
+            color: #667eea;
             font-weight: 600;
             padding: 8px 16px;
             border-radius: 20px;
             transition: all 0.3s ease;
-            border: 2px solid #ff6b6b;
+            border: 2px solid #667eea;
         }
 
         .nav-links a:hover {
-            background: #ff6b6b;
+            background: #667eea;
             color: white;
         }
 
         .nav-links a.active {
-            background: #ff6b6b;
+            background: #667eea;
             color: white;
         }
 
@@ -101,7 +101,7 @@
             padding: 20px;
             border-radius: 8px;
             text-align: center;
-            border-left: 4px solid #ff6b6b;
+            border-left: 4px solid #667eea;
         }
 
         .feature h3 {
@@ -116,7 +116,7 @@
         }
 
         .version-section {
-            background: #ff6b6b;
+            background: #667eea;
             color: white;
             padding: 20px;
             border-radius: 10px;
@@ -158,52 +158,53 @@
     <div class="container">
         <nav>
             <div class="nav-links">
-                <a href="../">Главная</a>
-                <a href="../ru/" class="active">Русский</a>
-                <a href="../en/">Английский</a>
+                <a href="../">Home</a>
+                <a href="../ru/">Russian</a>
+                <a href="../en/" class="active">English</a>
             </div>
         </nav>
         
-        <h1>Добро пожаловать в моё приложение</h1>
-        <p class="subtitle">Современное веб-приложение с чистым дизайном и отличной производительностью</p>
+        <h1>Welcome to My Application</h1>
+        <p class="subtitle">Modern web application with clean design and great performance</p>
         
         <div class="content-section">
-            <h2>О проекте</h2>
-            <p>Это русская версия нашего приложения. Оно демонстрирует современные подходы к веб-разработке и адаптивный дизайн.</p>
+            <h2>About This Project</h2>
+            <p>This is the English version of our application. It demonstrates modern web development practices and responsive design.</p>
         </div>
 
         <div class="content-section">
-            <h2>Возможности</h2>
+            <h2>Features</h2>
             <div class="features">
                 <div class="feature">
-                    <h3>Высокая скорость</h3>
-                    <p>Оптимизировано для скорости и надежности</p>
+                    <h3>Fast Performance</h3>
+                    <p>Optimized for speed and reliability</p>
                 </div>
                 <div class="feature">
-                    <h3>Безопасность</h3>
-                    <p>Создано с учетом лучших практик безопасности</p>
+                    <h3>Secure</h3>
+                    <p>Built with security best practices</p>
                 </div>
                 <div class="feature">
-                    <h3>Адаптивность</h3>
-                    <p>Идеально работает на всех устройствах</p>
+                    <h3>Responsive</h3>
+                    <p>Works perfectly on all devices</p>
                 </div>
                 <div class="feature">
-                    <h3>Современный дизайн</h3>
-                    <p>Чистый и удобный интерфейс</p>
+                    <h3>Modern Design</h3>
+                    <p>Clean and user-friendly interface</p>
                 </div>
             </div>
         </div>
 
         <div class="version-section">
-            <div class="version-label">Версия приложения</div>
+            <div class="version-label">Application Version</div>
             <div id="version">1.0.0</div>
         </div>
     </div>
 
     <script>
+        // Исправленный скрипт для определения версии
         document.addEventListener('DOMContentLoaded', function() {
             const pathSegments = window.location.pathname.split('/');
-            let foundVersion = '1.0.0'; 
+            let foundVersion = '1.0.0'; // значение по умолчанию
             
             for (let segment of pathSegments) {
                 if (segment.startsWith('v')) {
